@@ -5,7 +5,6 @@
     <script type="text/javascript" src="smooth.js"></script>
     <script type="text/javascript" src="chart.js"></script>
     <script type="text/javascript">
-      var goal = 7;
       var data = [
         1.5, 6, 6.5, 5, 4.5, 4.5, 3, 7, 3.5, 8, 8, 8, 4, 6.5, 7.5, 5.5, 7, 7.5, 5.5, 7, 7,5, 7, 7, 8, 5, 5,
         7, 5, 3.5, 8, 4.5,4.5, 5.5, 6.5, 8.5, 0
@@ -23,9 +22,9 @@
     </div>
     <script type="text/javascript">
       var ada = document.getElementById('ada');
-      drawChart(data,'smooth-chart',{ width: ada.value });
+      drawChart(data,'smooth-chart',{ width: ada.value, goal: 7 });
       ada.onclick = ada.onchange = function() {
-        drawChart(data,'smooth-chart',{ width: ada.value });
+        drawChart(data,'smooth-chart',{ width: ada.value, goal: 7 });
       };
     </script>
   </body>

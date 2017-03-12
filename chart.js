@@ -6,7 +6,8 @@ function drawChart(data, id,opts) {
       width: Math.round( data.length / 20 ),
     }
   }
-  const {width} = opts;
+  const {width,goal} = opts;
+  if (goal == null) goal = 7;
   const c = document.getElementById(id), ctx = c.getContext('2d');
   const margin = 40, chartWidth = c.width - 2 * margin, chartHeight = c.height - 2 * margin;
   var mx, avg = 0;
@@ -41,7 +42,7 @@ function drawChart(data, id,opts) {
     ctx.fillText(label, c.width - margin + 6, v);
   }
   drawHorizontalMarker(avg, 'red', 'avg');
-  drawHorizontalMarker(7, 'green', 'goal');
+  drawHorizontalMarker(goal, 'green', 'goal');
 
   function drawAndLabelAxes() {
     ctx.beginPath();
