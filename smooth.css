@@ -1,15 +1,22 @@
 body {
   padding:  3em;
-  background-color: rgba(124,125,43,1);
+  background-color: rgba(249, 129, 2, 0.63);
 }
 .chart-title {
   display: table;
   color: #fff;
-  font-weight: bold;
   font-size: 30px;
   margin:  1em auto;
+  font-family: "Hoefler Text", Lobster, "Courier New", Courier, monospace;
 }
 .chart {
   display: table;
   margin: 0 auto;
+}
+.jude {
+  display: table;
+  margin: 1em auto;
+}
+.jude label {
+  margin-right: 0.5em;
 }

@@ -1,5 +1,12 @@
-function drawChart(data, id) {
+function drawChart(data, id,opts) {
   // pull out some things of general interest
+  // default options
+  if ( opts == null ) {
+    opts = {
+      width: Math.round( data.length / 20 ),
+    }
+  }
+  const {width} = opts;
   const c = document.getElementById(id), ctx = c.getContext('2d');
   const margin = 40, chartWidth = c.width - 2 * margin, chartHeight = c.height - 2 * margin;
   var mx, avg = 0;
@@ -18,16 +25,23 @@ function drawChart(data, id) {
   ctx.fillStyle = '#fff';
   ctx.fillRect(0,0,c.width, c.height);
 
-  function drawHorizontalMarker(y, color) {
+  function drawHorizontalMarker(y, color, label) {
     ctx.beginPath();
-    y = margin + ( mx - y ) * vwidth;
-    ctx.moveTo(margin, y);
-    ctx.strokeStyle = color;
-    ctx.lineTo(margin + chartWidth, y);
+    let v = margin + ( mx - y ) * vwidth;
+    ctx.moveTo(margin, v);
+    ctx.fillStyle = ctx.strokeStyle = color;
+    ctx.lineTo(margin + chartWidth, v);
     ctx.stroke();
+    ctx.beginPath();
+    ctx.font = "10px Arial";
+    ctx.textAlign = "right";
+    ctx.fillText(Math.round(y * 10)/10, margin-6, v);
+    ctx.beginPath();
+    ctx.textAlign = "left";
+    ctx.fillText(label, c.width - margin + 6, v);
   }
-  drawHorizontalMarker(avg, 'red');
-  drawHorizontalMarker(7, 'green');
+  drawHorizontalMarker(avg, 'red', 'avg');
+  drawHorizontalMarker(7, 'green', 'goal');
 
   function drawAndLabelAxes() {
     ctx.beginPath();
@@ -41,14 +55,14 @@ function drawChart(data, id) {
       ctx.stroke();
       y += vwidth;
     }
-    let x = margin + hwidth;
-    y = margin + chartHeight;
-    for ( let i = 0; i < data.length; i += 1 ) {
-      ctx.moveTo( x, y );
-      ctx.lineTo( x, y + 5 );
-      ctx.stroke();
-      x += hwidth;
-    }
+    // let x = margin + hwidth;
+    // y = margin + chartHeight;
+    // for ( let i = 0; i < data.length; i += 1 ) {
+    //   ctx.moveTo( x, y );
+    //   ctx.lineTo( x, y + 5 );
+    //   ctx.stroke();
+    //   x += hwidth;
+    // }
     // axes themselves
     ctx.strokeStyle = 'black';
     ctx.moveTo(margin, margin);
@@ -67,7 +81,7 @@ function drawChart(data, id) {
     ctx.rotate(Math.PI/2);
   }
   drawAndLabelAxes();
-  var smoothed = smooth(data, c.width - 2 * margin );
+  var smoothed = smooth(data, c.width - 2 * margin, { width: width});
 
   // *now* draw dots and whatnot
   const hstretcher = chartWidth / smoothed.length;
@@ -86,7 +100,7 @@ function drawChart(data, id) {
   // and the actual data points
   for ( let i = 0; i < smoothed.length; i++) {
     let r = smoothed[i][1];
-    if (r) {
+    if (r != null) {
       ctx.beginPath();
       ctx.strokeStyle = ctx.fillStyle = 'blue';
       x = margin + hstretcher * i, y = margin + chartHeight - r * vwidth;

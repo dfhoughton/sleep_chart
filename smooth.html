@@ -8,7 +8,7 @@
       var goal = 7;
       var data = [
         1.5, 6, 6.5, 5, 4.5, 4.5, 3, 7, 3.5, 8, 8, 8, 4, 6.5, 7.5, 5.5, 7, 7.5, 5.5, 7, 7,5, 7, 7, 8, 5, 5,
-        7, 5, 3.5, 8, 4.5,4.5, 5.5, 6.5, 8.5, 0.0
+        7, 5, 3.5, 8, 4.5,4.5, 5.5, 6.5, 8.5, 0
       ];
     </script>
   </head>
@@ -17,8 +17,16 @@
     <div class="chart">
       <canvas id="smooth-chart" width="800px" height="500px"/>
     </div>
+    <div class="jude">
+      <label>degree of smoothing (days):</label>
+      <input id="ada" type="number" min="0" name="ada" value="4">
+    </div>
     <script type="text/javascript">
-      drawChart(data,'smooth-chart');
+      var ada = document.getElementById('ada');
+      drawChart(data,'smooth-chart',{ width: ada.value });
+      ada.onclick = ada.onchange = function() {
+        drawChart(data,'smooth-chart',{ width: ada.value });
+      };
     </script>
   </body>
 </html>
