@@ -18,14 +18,14 @@
     </div>
     <div class="jude">
       <label>degree of smoothing (days):</label>
-      <input id="ada" type="number" min="0" value="4">
+      <input id="ada" type="number" min="0" value="7">
     </div>
     <script type="text/javascript">
-      var ada = document.getElementById('ada');
-      drawChart(data,'smooth-chart',{ width: ada.value, goal: 7 });
-      ada.onclick = ada.onchange = function() {
+      const ada = document.getElementById('ada'), f = function(){
         drawChart(data,'smooth-chart',{ width: ada.value, goal: 7 });
       };
+      f();
+      ada.onclick = ada.onchange = f;
     </script>
   </body>
 </html>
