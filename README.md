@@ -11,5 +11,5 @@ bestest javascript ever. I was a little lack-of-sleep-addled when I wrote it.
 If you're interested in the snippet of precious medical information contained herein, go
 nuts. Or maybe it's fake!
 
-Note: If you push the smoothing number up really high you'll start to see floating point
+*Note*: If you push the smoothing number up really high you'll start to see floating point
 overflow issues. In particular, the smoothed line will be a bit off the average line.
