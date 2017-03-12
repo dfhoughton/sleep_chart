@@ -1,6 +1,6 @@
 # sleep chart
 
-Something I made messing about with my kids or when I should be sleeping. This is just
+Something I made messing about with my kids or when I should have been sleeping. This is just
 a pure-canvas line chart with a smoothing algorithm based on a rolling weighted average.
 The weights are provided by a Gaussian, because why not?
 
