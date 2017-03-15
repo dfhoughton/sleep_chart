@@ -22,7 +22,6 @@ function drawChart(data, id,opts) {
   const vwidth = chartHeight / mx;
   const hwidth = chartWidth / data.length;
   // paint canvas white
-  ctx.beginPath();
   ctx.fillStyle = '#fff';
   ctx.fillRect(0,0,c.width, c.height);
 
@@ -33,11 +32,9 @@ function drawChart(data, id,opts) {
     ctx.fillStyle = ctx.strokeStyle = color;
     ctx.lineTo(margin + chartWidth, v);
     ctx.stroke();
-    ctx.beginPath();
     ctx.font = "10px Arial";
     ctx.textAlign = "right";
     ctx.fillText(Math.round(y * 10)/10, margin-6, v);
-    ctx.beginPath();
     ctx.textAlign = "left";
     ctx.fillText(label, c.width - margin + 6, v);
   }
@@ -75,18 +72,25 @@ function drawChart(data, id,opts) {
     ctx.textAlign = 'center';
     ctx.font = "14px Arial";
     // x axis
-    ctx.fillText("Days",(c.width - margin)/2, c.height - margin + 30 );
+    ctx.fillText("Days",(c.width - margin)/2, c.height - margin + 26 );
     // y axis
     ctx.rotate(-Math.PI/2);
     ctx.fillText("Hours",-c.height/2,margin - 15);
     ctx.rotate(Math.PI/2);
+    // max and min
+    ctx.textAlign = 'right';
+    ctx.font = '12 px Arial';
+    ctx.fillText("0", margin - 8, c.height - margin);
+    ctx.fillText(mx, margin - 8, margin + 5);
+    ctx.textAlign = 'center';
+    ctx.fillText(1, margin, c.height - margin + 16);
+    ctx.fillText(data.length, margin + chartWidth, c.height - margin + 16);
   }
   drawAndLabelAxes();
   var smoothed = smooth(data, c.width - 2 * margin, { width: width});
 
   // *now* draw dots and whatnot
   const hstretcher = chartWidth / smoothed.length;
-  ctx.beginPath();
   ctx.strokeStyle = 'grey';
   for ( let i = 0; i < smoothed.length; i++ ) {
     let s = smoothed[i][0];
